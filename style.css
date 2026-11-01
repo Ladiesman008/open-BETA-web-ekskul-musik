@@ -217,6 +217,8 @@ td .btn{flex:none;padding:.4rem .8rem;font-size:.82rem;border-radius:12px;margin
 .divs .btn.active{color:var(--ac-ink)}
 .divs .btn i{font-style:normal;font-size:1.6rem;filter:drop-shadow(2px 3px 2px rgba(70,85,120,.3));text-shadow:none;transition:filter .18s}
 .divs .btn:active i,.divs .btn.active i{filter:drop-shadow(1px 1px 1px rgba(70,85,120,.3))}
+/* tombol "Semua Divisi" (sendirian di baris terakhir) dipusatkan di kolom tengah; di layar kecil (1 kolom) tidak berubah */
+@media(min-width:721px){.divs .btn:last-child:nth-child(3n+1){grid-column:2}}
 .desc{padding:1.4rem;text-align:left}
 .desc.fade{animation:rise .3s ease-out}
 .desc h3{margin-bottom:.4rem;font-size:1.2rem}
@@ -372,3 +374,126 @@ td .btn{flex:none;padding:.4rem .8rem;font-size:.82rem;border-radius:12px;margin
   .stats{gap:1.4rem}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* =========================================================
+   TATA LETAK DASHBOARD BARU (mengikuti gambar referensi)
+   ---------------------------------------------------------
+   Blok ini hanya MENAMBAH aturan di akhir file. Tidak ada baris lama
+   yang diubah, dan index.html / script.js tidak disentuh.
+   Berlaku di layar lebar (>= 960px). Di layar yang lebih kecil,
+   tampilan lama tetap dipakai apa adanya.
+   Hapus seluruh blok ini untuk kembali ke tampilan sebelumnya.
+   ========================================================= */
+:root{
+  /* ikon menu sidebar & tanggal (dipakai sebagai mask, warnanya mengikuti teks) */
+  --ic-feed:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='16' rx='3.5'/%3E%3Ccircle cx='9' cy='10' r='1.7'/%3E%3Cpath d='M21 16.5l-5-5L7 20'/%3E%3C/svg%3E");
+  --ic-home:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 11.5L12 4l9 7.5'/%3E%3Cpath d='M5.5 10v9.5h13V10'/%3E%3Cpath d='M10 19.5v-5.5h4v5.5'/%3E%3C/svg%3E");
+  --ic-user:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7'/%3E%3C/svg%3E");
+  --ic-join:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10' cy='8' r='4'/%3E%3Cpath d='M2.5 21c0-4.2 3.4-7 7.5-7'/%3E%3Cpath d='M18 9v7M14.5 12.5h7'/%3E%3C/svg%3E");
+  --ic-cal:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='16' rx='3'/%3E%3Cpath d='M8 3v4M16 3v4M3 10h18'/%3E%3Cpath d='M8 14.5h.01M12 14.5h.01M16 14.5h.01M8 18h.01M12 18h.01'/%3E%3C/svg%3E");
+  /* ikon kartu statistik & panah daftar divisi (warna aksen) */
+  --ico-teach:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233a4bc2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 9l10-5 10 5-10 5z'/%3E%3Cpath d='M6 11.2V16c0 1.6 2.7 3 6 3s6-1.4 6-3v-4.8'/%3E%3Cpath d='M22 9v5.5'/%3E%3C/svg%3E");
+  --ico-star:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233a4bc2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3.2l2.7 5.5 6.1.9-4.4 4.3 1 6.1L12 17.1l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z'/%3E%3C/svg%3E");
+  --ico-users:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233a4bc2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8' r='3.4'/%3E%3Cpath d='M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6'/%3E%3Ccircle cx='17.2' cy='9' r='2.7'/%3E%3Cpath d='M16.8 14.1c2.9.2 4.7 2.2 4.7 5.2'/%3E%3C/svg%3E");
+  --ico-next:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233a4bc2' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E");
+  /* nada G terukir menjorok ke dalam batu (pengganti ornamen daun di pojok kiri bawah) */
+  --nada-g:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-60 -60 542 1311'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='.3' y2='1'%3E%3Cstop offset='0' stop-color='%238e9ab8'/%3E%3Cstop offset='.55' stop-color='%23b1bbd2'/%3E%3Cstop offset='1' stop-color='%23cbd3e5'/%3E%3C/linearGradient%3E%3Cfilter id='f' x='-20%25' y='-8%25' width='140%25' height='116%25' color-interpolation-filters='sRGB'%3E%3CfeComponentTransfer in='SourceAlpha' result='inv'%3E%3CfeFuncA type='table' tableValues='1 0'/%3E%3C/feComponentTransfer%3E%3CfeOffset in='inv' dx='18' dy='18' result='o1'/%3E%3CfeGaussianBlur in='o1' stdDeviation='11' result='b1'/%3E%3CfeComposite in='b1' in2='SourceAlpha' operator='in' result='s1'/%3E%3CfeFlood flood-color='%231b2650' flood-opacity='.72'/%3E%3CfeComposite in2='s1' operator='in' result='dark'/%3E%3CfeOffset in='inv' dx='-12' dy='-12' result='o2'/%3E%3CfeGaussianBlur in='o2' stdDeviation='7' result='b2'/%3E%3CfeComposite in='b2' in2='SourceAlpha' operator='in' result='s2'/%3E%3CfeFlood flood-color='%23ffffff' flood-opacity='.95'/%3E%3CfeComposite in2='s2' operator='in' result='light'/%3E%3CfeMerge%3E%3CfeMergeNode in='SourceGraphic'/%3E%3CfeMergeNode in='dark'/%3E%3CfeMergeNode in='light'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M314 898Q344 1003 344 1070Q344 1123 307 1157Q270 1191 217 1191Q167 1191 130 1161.5Q93 1132 93 1090Q93 1060 113.5 1033.5Q134 1007 163.5 1007Q193 1007 211.5 1028.5Q230 1050 230 1078Q230 1140 160 1140Q178 1168 218 1168Q233 1168 248.5 1163.5Q264 1159 281 1148Q298 1137 308.5 1113.5Q319 1090 319 1057Q319 1036 291 906Q269 912 236 912Q139 912 69.5 840Q0 768 0 668Q0 633 11.5 597Q23 561 37.5 533.5Q52 506 80.5 471.5Q109 437 128.5 416.5Q148 396 183 361Q160 279 160 211Q160 121 193 60.5Q226 0 259 0Q269 0 281.5 13Q294 26 306 49Q318 72 326.5 109.5Q335 147 335 190Q335 349 222 453L248 571Q264 568 277 568Q338 568 380 617.5Q422 667 422 738Q422 856 314 898ZM306 154Q306 99 274 99Q238 99 213 152Q188 205 188 270Q188 312 201 343Q239 320 272.5 260.5Q306 201 306 154ZM378 772Q378 717 346 684Q314 651 263 651L308 877Q378 848 378 772ZM287 883 241 653Q214 659 191.5 686Q169 713 169 742Q169 757 175 771.5Q181 786 189.5 796Q198 806 207 814Q216 822 222 825.5Q228 829 228 829L220 834Q187 825 157.5 794Q128 763 128 716Q128 669 157.5 629.5Q187 590 223 577L205 470Q48 601 48 723Q48 796 103 845Q158 894 228 894Q245 894 287 883Z' fill='url(%23g)' filter='url(%23f)'/%3E%3C/svg%3E");
+  /* lingkaran batu timbul untuk ikon */
+  --disc:radial-gradient(circle at 30% 25%,#fff,#dfe5f1 50%,#b8c3d8);
+}
+
+@media(min-width:960px){
+
+  /* ----- bingkai besar + pembagian area: header | sidebar | konten | footer ----- */
+  .container{
+    max-width:1280px;width:calc(100% - 3rem);margin:1.6rem auto;padding:1.6rem;
+    display:grid;grid-template-columns:248px minmax(0,1fr);grid-template-rows:auto 1fr auto;
+    grid-template-areas:"head head" "side main" "side foot";column-gap:1.8rem;row-gap:0;
+    background:var(--grain),var(--bg);border:1px solid rgba(255,255,255,.75);border-radius:48px;
+    box-shadow:20px 20px 44px var(--lo),-20px -20px 44px var(--hi),
+      inset 2px 2px 3px rgba(255,255,255,.95),inset -3px -3px 8px rgba(140,155,190,.3)}
+  .container>.header{grid-area:head;margin:0 0 1.5rem;padding:0 .4rem 0 0;background:none;border:0;border-radius:0;box-shadow:none}
+  .container>.tabs{grid-area:side;margin:0;flex-direction:column;align-items:stretch;gap:.9rem;padding:1.3rem 1.1rem 1.1rem;border-radius:38px}
+  .container>.pane{grid-area:main;min-width:0}
+  .container>.footer{grid-area:foot;margin:.2rem 0 0;padding:1rem 2rem;border-radius:34px}
+
+  /* ----- header: piringan logo, judul, tanggal berbentuk pil ----- */
+  .container .brand{flex:1 1 420px;gap:1.2rem;position:relative}
+  .container .brand::before{content:"";position:absolute;left:0;top:50%;width:164px;height:164px;transform:translateY(-50%);
+    border-radius:50%;background:var(--disc);border:4px solid #eef2f9;
+    box-shadow:10px 12px 22px var(--lo),-8px -8px 18px var(--hi),0 5px 0 var(--edge)}
+  .container .brand:has(.logo[hidden])::before{display:none}
+  .container .logo{position:relative;z-index:1;width:128px;height:128px;margin:18px}
+  .container .brand h1{font-size:clamp(2rem,2.9vw,2.8rem);line-height:1.1;letter-spacing:.05em}
+  .container .brand .accent-text{font-size:.85rem;letter-spacing:.36em;text-transform:uppercase;margin-top:.6rem}
+  .container .clock{flex-direction:row;align-items:center;gap:.9rem;padding:.75rem 1.5rem .75rem 1.2rem;border-radius:999px;text-align:left}
+  .container .clock::before{content:"";flex:none;width:1.6rem;height:1.6rem;background:var(--ac-ink);
+    -webkit-mask:var(--ic-cal) center/contain no-repeat;mask:var(--ic-cal) center/contain no-repeat}
+  .container .clock::after{content:"";flex:none;width:.7rem;height:.7rem;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#a9b7ff,var(--ac));box-shadow:0 0 9px rgba(74,95,220,.75)}
+  .container .clock b{font-size:1.25rem}
+  .container .clock span{font-size:.92rem;padding-left:.9rem;border-left:2px solid rgba(100,115,150,.25);box-shadow:-1px 0 0 rgba(255,255,255,.9)}
+
+  /* ----- sidebar: menu vertikal beri ikon, garis pemisah terukir, nada G di bawah ----- */
+  .container .tabs .btn{flex:none;display:flex;align-items:center;justify-content:flex-start;gap:.9rem;padding:.95rem 1.2rem;text-align:left}
+  .container .tabs .btn::before{content:"";flex:none;width:1.45rem;height:1.45rem;background:currentColor;
+    -webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+  .container .tabs [data-tab="feed"]{--ic:var(--ic-feed)}
+  .container .tabs [data-tab="dashboard"]{--ic:var(--ic-home)}
+  .container .tabs [data-tab="akun"]{--ic:var(--ic-user)}
+  .container .tabs #open-reg{--ic:var(--ic-join)}
+  .container .tabs [data-tab]{order:1}
+  .container .tabs::before{content:"";order:2;flex:none;height:2px;margin:.3rem .7rem;border-radius:2px;
+    background:rgba(100,115,150,.3);box-shadow:0 1px 0 rgba(255,255,255,.95)}
+  .container .tabs #open-reg{order:3}
+  .container .tabs::after{content:"";order:4;flex:1 1 0;min-height:230px;max-height:440px;margin:auto -.2rem -.1rem;
+    background:var(--nada-g) center bottom/contain no-repeat;filter:drop-shadow(1.5px 2px 0 rgba(255,255,255,.95))}
+
+  /* ----- banner dashboard: nada G di kiri, judul di kanan ----- */
+  .container .hero{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:2.2rem;align-items:center;
+    text-align:left;padding:1.8rem 2.2rem;--clef-size:4.8rem}
+  .container .hero .clef{grid-column:1;grid-row:1 / span 2;width:150px;height:150px;margin:0}
+  .container .hero h2{grid-column:2;grid-row:1;align-self:end;margin:0 0 .4rem;text-align:center;text-transform:uppercase;
+    letter-spacing:.06em;font-size:clamp(1.6rem,2.4vw,2.3rem);line-height:1.15}
+  .container .hero>.muted{grid-column:2;grid-row:2;align-self:start;text-align:center;font-style:italic}
+  .container .hero .divisi{grid-column:1 / -1;grid-row:3;margin-top:1.8rem}
+
+  /* ----- kartu statistik: lingkaran ikon di kiri, angka/nama di kanan ----- */
+  .container .stats{gap:1.4rem}
+  .container .stat{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:1.1rem;
+    align-items:center;align-content:center;text-align:left;padding:1.2rem 1.4rem}
+  .container .stat::before{content:"";grid-column:1;grid-row:1 / span 3;width:60px;height:60px;border-radius:50%;
+    background:var(--ico) center/50% no-repeat,var(--disc);box-shadow:var(--rnd-up)}
+  .container .stat>*{grid-column:2}
+  .container .stat-btn[data-profil="pembina"]{--ico:var(--ico-teach)}
+  .container .stat-btn[data-profil="ketua"]{--ico:var(--ico-star)}
+  .container .stat:not(.stat-btn){--ico:var(--ico-users)}
+  .container .stat-v{grid-row:1;margin:0;font-size:1.25rem;line-height:1.25}
+  .container .stat-n{grid-row:1;font-size:2.4rem;line-height:1.1}
+  .container .stat .muted{grid-row:2;font-size:.9rem}
+  .container .stat .hint{grid-row:3;margin-top:.15rem}
+
+  /* ----- daftar divisi: kartu mendatar (ikon bulat, nama, panah) ----- */
+  .container .divs .btn{flex-direction:row;justify-content:flex-start;align-items:center;gap:.9rem;
+    padding:.9rem 1rem;text-align:left;font-size:.98rem}
+  .container .divs .btn i{flex:none;width:54px;height:54px;display:grid;place-items:center;border-radius:50%;
+    background:var(--disc);box-shadow:var(--rnd-up);font-size:1.5rem;filter:none}
+  .container .divs .btn::after{content:"";flex:none;margin-left:auto;width:34px;height:34px;border-radius:50%;
+    background:var(--ico-next) center/48% no-repeat,var(--disc);box-shadow:var(--rnd-up)}
+
+  /* penanda kecil di judul "Anggota aktif" */
+  .container .stats+.card>h2::before{content:"";display:inline-block;width:.75rem;height:.75rem;margin-right:.7rem;
+    vertical-align:middle;border-radius:4px;background:linear-gradient(145deg,#7e91ff,var(--ac));box-shadow:0 0 8px rgba(74,95,220,.5)}
+
+  /* ----- bar kutipan di bawah ----- */
+  .container .footer .quote{position:relative;margin-bottom:.45rem;padding:0 13%;font-size:.9rem;
+    background:linear-gradient(90deg,transparent,rgba(74,95,220,.55)) left center/11% 2px no-repeat,
+               linear-gradient(270deg,transparent,rgba(74,95,220,.55)) right center/11% 2px no-repeat}
+  .container .footer .quote::before{content:"\201C";display:inline-block;margin-right:.55rem;vertical-align:-.28em;
+    font:700 2.4rem/.4 var(--display);font-style:normal;color:var(--ac)}
+}
+
+/* layar menengah: daftar divisi jadi 2 kolom agar nama tidak terlalu sempit */
+@media(min-width:960px) and (max-width:1199px){
+  .container .divs{grid-template-columns:repeat(2,1fr)}
+}
