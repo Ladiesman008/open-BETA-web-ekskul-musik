@@ -230,11 +230,13 @@ td{border-top-color:var(--line);box-shadow:inset 0 1px 0 var(--bc-b)}
   .container{border-color:var(--card-bd);
     box-shadow:20px 20px 44px var(--lo),-20px -20px 44px var(--hi),
       inset 2px 2px 3px var(--t-ihi),inset -3px -3px 8px var(--t-ilo)}
-  /* Logo pas di dalam border lingkaran (lingkaran dalam = 156px).
-     Gambar logo punya tepi kosong ±7%, jadi dibuat 180px lalu dipotong bulat 156px.
-     Kalau logo terlihat terpotong, kecilkan 180px; kalau masih ada celah, besarkan
-     (jaga margin = (164 - ukuran) / 2 dan radius clip-path = 78px). */
-  .container .logo{width:180px;height:180px;margin:-8px;clip-path:circle(78px at 50% 50%)}
+  /* Logo pas di dalam border lingkaran.
+     Lubang dalam piringan = 164px (lebar 164 + border 4px, content-box).
+     Medali di gambar hanya ±87% dari kotak gambar, jadi gambar dibuat 190px
+     lalu dipotong bulat 164px (radius 82px). Margin menjaga lebar tata letak
+     tetap 164px dan memusatkan logo di piringan (pusat piringan = 86px dari kiri).
+     Kalau masih ada celah: besarkan 190px (jaga margin) ; kalau terpotong: kecilkan. */
+  .container .logo{width:190px;height:190px;margin:-13px -17px -13px -9px;clip-path:circle(82px at 50% 50%)}
   .container .tabs [data-tab="jadwal"]{--ic:var(--ic-cal)}
   .container .tabs [data-tab="lagu"]{--ic:var(--ic-note)}
   .container .tabs .btn::before{filter:url(#ukir-ikon)}
