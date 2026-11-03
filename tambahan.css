@@ -22,9 +22,10 @@
   --disc:radial-gradient(circle at 30% 25%,#fff,#ece7e0 50%,#cdc6bc);
   --disc-r:radial-gradient(circle at 70% 75%,#fff,#ece7e0 50%,#cdc6bc);
 
-  --ink-a:#34302b;--ink-b:#6f685f;
-  --carve:1px 1px 0 rgba(255,255,255,.95),-1px -1px 1px rgba(70,58,46,.38);
-  --carve-lg:2px 2px 1px rgba(255,255,255,.95),-1.5px -1.5px 2px rgba(60,48,36,.45);
+  --ink-a:#2a2622;--ink-b:#5a534b;
+  /* huruf terukir: dinding alur gelap di kiri-atas, bibir batu terang di kanan-bawah */
+  --carve:1px 1px 0 rgba(255,255,255,1),0 2px 1px rgba(255,255,255,.55),-1px -1px 1px rgba(40,30,20,.62),-1px -1px 0 rgba(40,30,20,.35);
+  --carve-lg:2px 2px 1px rgba(255,255,255,1),1px 3px 2px rgba(255,255,255,.5),-2px -2px 2px rgba(40,30,20,.7),-1px -1px 0 rgba(40,30,20,.5);
 
   /* token bayangan */
   --t-ihi:rgba(255,255,255,.95);
@@ -58,8 +59,8 @@
   --disc-r:radial-gradient(circle at 70% 75%,#383b43,#22242a 50%,#101114);
 
   --ink-a:#e6e9f0;--ink-b:#979eb1;
-  --carve:1px 1px 0 rgba(255,255,255,.09),-1px -1px 1px rgba(0,0,0,.85);
-  --carve-lg:2px 2px 1px rgba(255,255,255,.1),-1.5px -1.5px 2px rgba(0,0,0,.9);
+  --carve:1px 1px 0 rgba(255,255,255,.14),0 2px 1px rgba(255,255,255,.06),-1px -1px 1px rgba(0,0,0,1),-1px -1px 0 rgba(0,0,0,.7);
+  --carve-lg:2px 2px 1px rgba(255,255,255,.16),1px 3px 2px rgba(255,255,255,.07),-2px -2px 2px rgba(0,0,0,1),-1px -1px 0 rgba(0,0,0,.8);
 
   --t-ihi:rgba(255,255,255,.07);
   --t-ilo:rgba(0,0,0,.55);
@@ -131,11 +132,12 @@ td{border-top-color:var(--line);box-shadow:inset 0 1px 0 var(--bc-b)}
 
 /* judul besar berhuruf ukiran: tepi cahaya mengikuti tema */
 @supports ((-webkit-background-clip:text) or (background-clip:text)){
+  /* bayangan DALAM huruf (filter #ukir-huruf di index.html) + bibir batu di tepi luar */
   h1,h2,h3,.stat-v,.stat-n,.clock b{
-    filter:drop-shadow(1.5px 1.5px 0 rgba(255,255,255,.95)) drop-shadow(-1px -1px .5px rgba(70,58,46,.4))}
+    filter:url(#ukir-huruf) drop-shadow(1.5px 1.5px 0 rgba(255,255,255,1)) drop-shadow(-1px -1px .5px rgba(40,30,20,.55))}
   :root[data-theme="dark"] h1,:root[data-theme="dark"] h2,:root[data-theme="dark"] h3,
   :root[data-theme="dark"] .stat-v,:root[data-theme="dark"] .stat-n,:root[data-theme="dark"] .clock b{
-    filter:drop-shadow(1.5px 1.5px 0 rgba(255,255,255,.11)) drop-shadow(-1px -1px .5px rgba(0,0,0,.92))}
+    filter:url(#ukir-huruf-gelap) drop-shadow(1.5px 1.5px 0 rgba(255,255,255,.16)) drop-shadow(-1px -1px .5px rgba(0,0,0,1))}
 }
 :root[data-theme="dark"] .clock b,:root[data-theme="dark"] .stat-n,:root[data-theme="dark"] .modal-head h2{
   --ink-a:#bfc8ff;--ink-b:#8393f2}
@@ -228,6 +230,11 @@ td{border-top-color:var(--line);box-shadow:inset 0 1px 0 var(--bc-b)}
   .container{border-color:var(--card-bd);
     box-shadow:20px 20px 44px var(--lo),-20px -20px 44px var(--hi),
       inset 2px 2px 3px var(--t-ihi),inset -3px -3px 8px var(--t-ilo)}
+  /* Logo pas di dalam border lingkaran (lingkaran dalam = 156px).
+     Gambar logo punya tepi kosong ±7%, jadi dibuat 180px lalu dipotong bulat 156px.
+     Kalau logo terlihat terpotong, kecilkan 180px; kalau masih ada celah, besarkan
+     (jaga margin = (164 - ukuran) / 2 dan radius clip-path = 78px). */
+  .container .logo{width:180px;height:180px;margin:-8px;clip-path:circle(78px at 50% 50%)}
   .container .tabs [data-tab="jadwal"]{--ic:var(--ic-cal)}
   .container .tabs [data-tab="lagu"]{--ic:var(--ic-note)}
   .container .tabs .btn::before{filter:url(#ukir-ikon)}
