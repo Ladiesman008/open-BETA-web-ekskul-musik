@@ -3,13 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eeebe6">
+<script>
+  /* pasang tema tersimpan sebelum halaman tampil, agar tidak berkedip */
+  (function(){try{document.documentElement.setAttribute('data-theme',localStorage.getItem('ekskul_tema')==='dark'?'dark':'light')}catch(e){document.documentElement.setAttribute('data-theme','light')}})();
+</script>
 <title>Ekstrakurikuler Musik - SMK BPP Bandung</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Hanken+Grotesk:wght@500;600;700&family=Noto+Music&display=swap">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="tambahan.css">
 </head>
 <body>
+
+<!-- Filter ukiran batu (dipakai logo dan ikon lewat tambahan.css) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="ukir-logo" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feComponentTransfer in="SourceAlpha" result="inv"><feFuncA type="table" tableValues="1 0"/></feComponentTransfer>
+      <feOffset in="inv" dx="4" dy="4" result="o1"/><feGaussianBlur in="o1" stdDeviation="3" result="b1"/>
+      <feComposite in="b1" in2="SourceAlpha" operator="in" result="s1"/>
+      <feFlood flood-color="#3b2f22" flood-opacity=".6"/><feComposite in2="s1" operator="in" result="dark"/>
+      <feOffset in="inv" dx="-3" dy="-3" result="o2"/><feGaussianBlur in="o2" stdDeviation="2" result="b2"/>
+      <feComposite in="b2" in2="SourceAlpha" operator="in" result="s2"/>
+      <feFlood flood-color="#ffffff" flood-opacity=".9"/><feComposite in2="s2" operator="in" result="light"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="dark"/><feMergeNode in="light"/></feMerge>
+    </filter>
+    <filter id="ukir-logo-gelap" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feComponentTransfer in="SourceAlpha" result="inv"><feFuncA type="table" tableValues="1 0"/></feComponentTransfer>
+      <feOffset in="inv" dx="4" dy="4" result="o1"/><feGaussianBlur in="o1" stdDeviation="3" result="b1"/>
+      <feComposite in="b1" in2="SourceAlpha" operator="in" result="s1"/>
+      <feFlood flood-color="#000000" flood-opacity=".85"/><feComposite in2="s1" operator="in" result="dark"/>
+      <feOffset in="inv" dx="-3" dy="-3" result="o2"/><feGaussianBlur in="o2" stdDeviation="2" result="b2"/>
+      <feComposite in="b2" in2="SourceAlpha" operator="in" result="s2"/>
+      <feFlood flood-color="#ffffff" flood-opacity=".14"/><feComposite in2="s2" operator="in" result="light"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="dark"/><feMergeNode in="light"/></feMerge>
+    </filter>
+    <filter id="ukir-ikon" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feComponentTransfer in="SourceAlpha" result="inv"><feFuncA type="table" tableValues="1 0"/></feComponentTransfer>
+      <feOffset in="inv" dx="1.5" dy="1.5" result="o1"/><feGaussianBlur in="o1" stdDeviation="1.2" result="b1"/>
+      <feComposite in="b1" in2="SourceAlpha" operator="in" result="s1"/>
+      <feFlood flood-color="#3b2f22" flood-opacity=".55"/><feComposite in2="s1" operator="in" result="dark"/>
+      <feOffset in="inv" dx="-1" dy="-1" result="o2"/><feGaussianBlur in="o2" stdDeviation=".8" result="b2"/>
+      <feComposite in="b2" in2="SourceAlpha" operator="in" result="s2"/>
+      <feFlood flood-color="#ffffff" flood-opacity=".85"/><feComposite in2="s2" operator="in" result="light"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="dark"/><feMergeNode in="light"/></feMerge>
+    </filter>
+    <filter id="ukir-ikon-gelap" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feComponentTransfer in="SourceAlpha" result="inv"><feFuncA type="table" tableValues="1 0"/></feComponentTransfer>
+      <feOffset in="inv" dx="1.5" dy="1.5" result="o1"/><feGaussianBlur in="o1" stdDeviation="1.2" result="b1"/>
+      <feComposite in="b1" in2="SourceAlpha" operator="in" result="s1"/>
+      <feFlood flood-color="#000000" flood-opacity=".9"/><feComposite in2="s1" operator="in" result="dark"/>
+      <feOffset in="inv" dx="-1" dy="-1" result="o2"/><feGaussianBlur in="o2" stdDeviation=".8" result="b2"/>
+      <feComposite in="b2" in2="SourceAlpha" operator="in" result="s2"/>
+      <feFlood flood-color="#ffffff" flood-opacity=".16"/><feComposite in2="s2" operator="in" result="light"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="dark"/><feMergeNode in="light"/></feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<!-- Tombol mode gelap / terang (pojok kanan atas) -->
+<button type="button" class="close tema-btn" id="tema-btn" aria-label="Mode gelap" aria-pressed="false" title="Mode gelap / terang">
+  <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  <svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</button>
+
 <div class="container">
 
   <header class="card header">
@@ -23,6 +82,8 @@
   <nav class="card tabs">
     <button class="btn active" data-tab="feed">Kegiatan</button>
     <button class="btn" data-tab="dashboard">Dashboard</button>
+    <button class="btn" data-tab="jadwal">Jadwal</button>
+    <button class="btn" data-tab="lagu">Lagu</button>
     <button class="btn" data-tab="akun" id="tab-akun">Masuk</button>
     <button class="btn primary" id="open-reg">Daftar Anggota</button>
   </nav>
@@ -78,6 +139,41 @@
         <thead><tr><th>No</th><th>Nama</th><th>Kelas</th><th>Divisi</th><th>Jabatan</th></tr></thead>
         <tbody id="anggota-body"><tr><td colspan="5" class="center">Memuat data…</td></tr></tbody>
       </table></div>
+    </div>
+  </section>
+
+  <!-- JADWAL LATIHAN -->
+  <section id="jadwal" class="pane">
+    <div class="card">
+      <h2>Jadwal Latihan Rutin</h2>
+      <p class="muted">Jadwal latihan bersama seluruh anggota ekskul musik.</p>
+      <div class="jadwal-next inset" id="jadwal-next" aria-live="polite"></div>
+      <div class="jadwal-grid" id="jadwal-grid"></div>
+    </div>
+
+    <div class="card">
+      <h2>Latihan di Luar Sekolah</h2>
+      <p class="muted">Ingin latihan tambahan? Sewa studio musik yang terdekat dari sekolah.</p>
+      <a class="btn primary block btn-link" id="btn-studio" target="_blank" rel="noopener noreferrer" style="margin-top:1rem">Cari studio musik terdekat dari sekolah</a>
+      <div class="studio-list" id="studio-list"></div>
+      <ul class="tips">
+        <li>Hubungi studio lewat telepon atau WhatsApp untuk menanyakan tarif per jam dan jadwal yang masih kosong.</li>
+        <li>Patungan antaranggota band supaya biaya sewa lebih ringan.</li>
+        <li>Bawa perlengkapan pribadi seperti stik drum, kabel, pick, dan buku chord.</li>
+        <li>Beri tahu pembina dan orang tua sebelum latihan di luar sekolah.</li>
+        <li>Opsi lain: menurut situs Pemkot Bandung, <a href="https://www.bandung.go.id/news/read/5976/yuk-latihan-band-di-bandung-creative-hub-gratis-loh?lang=en" target="_blank" rel="noopener noreferrer">Bandung Creative Hub</a> pernah menyediakan latihan band gratis dengan syarat membawa KTP. Cek dulu apakah masih berlaku.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DAFTAR LAGU & CHORD -->
+  <section id="lagu" class="pane">
+    <div class="card">
+      <h2>Daftar Lagu &amp; Chord</h2>
+      <p class="muted">Lagu yang dipelajari di ekskul. Ketuk judul untuk membuka chord.</p>
+      <input class="inp" id="lagu-cari" type="search" placeholder="Cari judul, pencipta, atau divisi…" aria-label="Cari lagu" style="margin-top:1rem">
+      <div class="lagu-list" id="lagu-list"></div>
+      <p class="legend">Tanda garis tegak (|) memisahkan birama.</p>
     </div>
   </section>
 
@@ -214,5 +310,7 @@
 
 <script src="config.js"></script>
 <script src="script.js"></script>
+<script src="lagu.js"></script>
+<script src="tambahan.js"></script>
 </body>
 </html>

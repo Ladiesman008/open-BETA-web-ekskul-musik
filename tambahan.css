@@ -1,0 +1,238 @@
+/* =========================================================
+   TAMBAHAN: mode gelap/terang, menu Jadwal & Lagu, intip password
+   ---------------------------------------------------------
+   File ini dimuat SETELAH style.css dan hanya menimpa/menambah.
+   style.css tidak diubah. Hapus <link> file ini di index.html
+   untuk kembali ke tampilan sebelumnya.
+
+   Mode terang  = neomorphism putih mutiara (default)
+   Mode gelap   = neomorphism charcoal legam
+   Atur dengan atribut data-theme pada <html>.
+   ========================================================= */
+
+:root{
+  --ic-note:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18V5l12-2v13'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Ccircle cx='18' cy='16' r='3'/%3E%3C/svg%3E");
+
+  /* ===== PALET: putih mutiara ===== */
+  --bg:#eeebe6;--hi:#ffffff;--lo:#cdc6bc;--edge:#d5cec4;
+  --tx:#4a453f;--tx-deep:#2e2a26;--mu:#6b645b;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .25 0 0 0 .13 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --surf:var(--grain),radial-gradient(130% 100% at 0% 0%,rgba(255,224,236,.38),transparent 55%),radial-gradient(110% 90% at 100% 100%,rgba(208,228,255,.38),transparent 55%),linear-gradient(145deg,#fbf9f6,#e5e0d8);
+  --surf-r:var(--grain),linear-gradient(145deg,#e5e0d8,#fbf9f6);
+  --disc:radial-gradient(circle at 30% 25%,#fff,#ece7e0 50%,#cdc6bc);
+  --disc-r:radial-gradient(circle at 70% 75%,#fff,#ece7e0 50%,#cdc6bc);
+
+  --ink-a:#34302b;--ink-b:#6f685f;
+  --carve:1px 1px 0 rgba(255,255,255,.95),-1px -1px 1px rgba(70,58,46,.38);
+  --carve-lg:2px 2px 1px rgba(255,255,255,.95),-1.5px -1.5px 2px rgba(60,48,36,.45);
+
+  /* token bayangan */
+  --t-ihi:rgba(255,255,255,.95);
+  --t-ilo:rgba(150,138,124,.38);
+  --t-ilo2:rgba(130,118,104,.6);
+  --t-ring:rgba(120,108,94,.3);
+  --t-ring-s:rgba(120,108,94,.14);
+  --t-deep:rgba(90,80,70,.22);
+  --bc-a:rgba(130,118,104,.24);
+  --bc-b:rgba(255,255,255,.8);
+  --card-bd:rgba(255,255,255,.8);
+  --line:rgba(120,108,94,.18);
+  --rim:#f5f2ed;
+  --ph:#8a8379;
+  --sb1:#bdb5aa;--sb2:#ddd7ce;
+
+  --bd-up:rgba(255,255,255,.85);
+  --bd-dn:rgba(120,108,94,.5) rgba(255,255,255,.95) rgba(255,255,255,.95) rgba(120,108,94,.5);
+}
+
+/* ===== PALET: charcoal legam ===== */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#15161a;--hi:#272930;--lo:#050506;--edge:#0a0b0d;
+  --tx:#c4c8d2;--tx-deep:#eceef3;--mu:#9aa0ae;
+  --ac:#8394ff;--ac2:#8f78ff;--ac-ink:#a8b4ff;--ac-edge:#2b3796;--gold:#e0b862;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .8 0 0 0 0 .82 0 0 0 0 .9 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --surf:var(--grain),linear-gradient(145deg,#212328,#121316);
+  --surf-r:var(--grain),linear-gradient(145deg,#121316,#212328);
+  --disc:radial-gradient(circle at 30% 25%,#383b43,#22242a 50%,#101114);
+  --disc-r:radial-gradient(circle at 70% 75%,#383b43,#22242a 50%,#101114);
+
+  --ink-a:#e6e9f0;--ink-b:#979eb1;
+  --carve:1px 1px 0 rgba(255,255,255,.09),-1px -1px 1px rgba(0,0,0,.85);
+  --carve-lg:2px 2px 1px rgba(255,255,255,.1),-1.5px -1.5px 2px rgba(0,0,0,.9);
+
+  --t-ihi:rgba(255,255,255,.07);
+  --t-ilo:rgba(0,0,0,.55);
+  --t-ilo2:rgba(0,0,0,.78);
+  --t-ring:rgba(0,0,0,.6);
+  --t-ring-s:rgba(0,0,0,.45);
+  --t-deep:rgba(0,0,0,.5);
+  --bc-a:rgba(0,0,0,.75);
+  --bc-b:rgba(255,255,255,.06);
+  --card-bd:rgba(255,255,255,.06);
+  --line:rgba(255,255,255,.07);
+  --rim:#2d3037;
+  --ph:#7d8392;
+  --sb1:#3a3d46;--sb2:#16171b;
+
+  --bd-up:rgba(255,255,255,.07);
+  --bd-dn:rgba(0,0,0,.85) rgba(255,255,255,.07) rgba(255,255,255,.07) rgba(0,0,0,.85);
+}
+
+/* ===== Daftar bayangan (7 lapis, urutan sama dengan style.css agar animasi tetap mulus) ===== */
+:root{
+  --out:14px 14px 30px var(--lo),-14px -14px 30px var(--hi),0 7px 0 -2px var(--edge),
+        inset 2px 2px 3px var(--t-ihi),inset -3px -3px 7px var(--t-ilo),
+        inset 0 0 0 0 transparent,inset 0 0 0 0 transparent;
+  --out-dn:1px 1px 0 var(--t-ihi),-1px -1px 0 var(--t-ring),0 1px 0 0 var(--edge),
+        inset 8px 8px 16px var(--t-ilo2),inset -8px -8px 16px var(--t-ihi),
+        inset 0 0 0 1px var(--t-ring),inset 0 3px 6px var(--t-deep);
+  --btn-up:0 6px 0 var(--edge),8px 12px 18px var(--lo),-5px -5px 12px var(--hi),
+        inset 1px 1px 2px var(--t-ihi),inset -2px -2px 4px var(--t-ilo),
+        inset 0 0 0 0 transparent,inset 0 0 0 0 transparent;
+  --btn-hv:0 8px 0 var(--edge),10px 16px 22px var(--lo),-5px -5px 12px var(--hi),
+        inset 1px 1px 2px var(--t-ihi),inset -2px -2px 4px var(--t-ilo),
+        inset 0 0 0 0 transparent,inset 0 0 0 0 transparent;
+  --btn-dn:0 1px 0 var(--edge),1px 1px 0 var(--t-ihi),-1px -1px 0 var(--t-ring),
+        inset 5px 5px 10px var(--t-ilo2),inset -4px -4px 9px var(--t-ihi),
+        inset 0 0 0 1px var(--t-ring),inset 0 3px 5px var(--t-deep);
+  --rnd-up:0 4px 0 var(--edge),5px 8px 14px var(--lo),-4px -4px 10px var(--hi),
+        inset 1px 1px 2px var(--t-ihi),inset -2px -2px 3px var(--t-ilo),
+        inset 0 0 0 0 transparent,inset 0 0 0 0 transparent;
+  --rnd-dn:0 1px 0 var(--edge),1px 1px 0 var(--t-ihi),-1px -1px 0 var(--t-ring),
+        inset 3px 3px 7px var(--t-ilo2),inset -3px -3px 6px var(--t-ihi),
+        inset 0 0 0 1px var(--t-ring),inset 0 2px 4px var(--t-deep);
+  --clef-up:14px 16px 28px var(--lo),-12px -12px 24px var(--hi),0 0 0 0 transparent,
+        inset -8px -8px 14px var(--t-ilo),inset 6px 6px 12px var(--t-ihi),
+        inset 0 0 0 0 transparent,inset 0 0 0 0 transparent;
+  --clef-dn:1px 1px 0 var(--t-ihi),-1px -1px 0 var(--t-ring),0 0 0 0 transparent,
+        inset 8px 8px 16px var(--t-ilo2),inset -7px -7px 14px var(--t-ihi),
+        inset 0 0 0 2px var(--t-ring),inset 0 4px 8px var(--t-deep);
+  --in:inset 7px 7px 14px var(--lo),inset -7px -7px 14px var(--hi),
+        inset 0 2px 4px var(--t-deep),inset 0 0 0 1px var(--t-ring-s);
+}
+
+/* ===== Elemen yang warnanya tertulis langsung di style.css ===== */
+.card{border-color:var(--card-bd)}
+.inset{border-color:var(--bc-a) var(--bc-b) var(--bc-b) var(--bc-a)}
+.inp{border-color:var(--bc-a) var(--bc-b) var(--bc-b) var(--bc-a)}
+.inp::placeholder{color:var(--ph)}
+th{box-shadow:inset 0 -1px 0 var(--bc-a),0 1px 0 var(--bc-b)}
+td{border-top-color:var(--line);box-shadow:inset 0 1px 0 var(--bc-b)}
+.scroll{scrollbar-color:var(--sb1) var(--sb2)}
+.clef{background:var(--disc)}
+.clef:active,.clef[aria-expanded=true]{background:var(--disc-r)}
+.avatar{background:var(--disc);border-color:var(--rim)}
+.thumb{border-color:var(--rim)}
+.container .brand::before{border-color:var(--rim)}
+.card.footer{box-shadow:8px 8px 18px var(--lo),-8px -8px 18px var(--hi),0 4px 0 -1px var(--edge),
+  inset 2px 2px 3px var(--t-ihi),inset -2px -2px 5px var(--t-ilo)}
+@media(hover:hover){tbody tr:hover{background:var(--line)}}
+
+/* judul besar berhuruf ukiran: tepi cahaya mengikuti tema */
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+  h1,h2,h3,.stat-v,.stat-n,.clock b{
+    filter:drop-shadow(1.5px 1.5px 0 rgba(255,255,255,.95)) drop-shadow(-1px -1px .5px rgba(70,58,46,.4))}
+  :root[data-theme="dark"] h1,:root[data-theme="dark"] h2,:root[data-theme="dark"] h3,
+  :root[data-theme="dark"] .stat-v,:root[data-theme="dark"] .stat-n,:root[data-theme="dark"] .clock b{
+    filter:drop-shadow(1.5px 1.5px 0 rgba(255,255,255,.11)) drop-shadow(-1px -1px .5px rgba(0,0,0,.92))}
+}
+:root[data-theme="dark"] .clock b,:root[data-theme="dark"] .stat-n,:root[data-theme="dark"] .modal-head h2{
+  --ink-a:#bfc8ff;--ink-b:#8393f2}
+
+/* khusus mode gelap */
+:root[data-theme="dark"] select.inp{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1.5 1.5 7 7l5.5-5.5' fill='none' stroke='%239aa0ae' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+:root[data-theme="dark"] select.inp option{background:#1b1c21;color:#dfe2ea}
+:root[data-theme="dark"] .note.ok{color:#5fd6a6;background:#12241d}
+:root[data-theme="dark"] .note.err{color:#ff9d9d;background:#2a1616}
+:root[data-theme="dark"] .overlay{background:rgba(0,0,0,.7)}
+:root[data-theme="dark"] .reel-empty{color:#e6e8ee;text-shadow:1px 1px 0 rgba(0,0,0,.6)}
+:root[data-theme="dark"] ::selection{background:rgba(131,148,255,.35)}
+
+/* ===== Logo & ikon: terukir menjorok ke dalam batu =====
+   (filter #ukir-* ada di index.html, tepat setelah <body>) */
+.logo{border-radius:50%;filter:url(#ukir-logo)}
+:root[data-theme="dark"] .logo{filter:url(#ukir-logo-gelap)}
+:root .divs .btn i,:root .divs .btn:active i,:root .divs .btn.active i,:root .container .divs .btn i{filter:url(#ukir-ikon)}
+:root[data-theme="dark"] .divs .btn i,:root[data-theme="dark"] .divs .btn:active i,
+:root[data-theme="dark"] .divs .btn.active i,:root[data-theme="dark"] .container .divs .btn i{filter:url(#ukir-ikon-gelap)}
+
+/* ===== Tombol mode gelap/terang (pojok kanan atas, kecil) ===== */
+.tema-btn{position:fixed;top:.55rem;right:.55rem;z-index:40;width:34px;height:34px;padding:0;display:grid;place-items:center;font-size:0}
+.tema-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.tema-btn .ic-sun{display:none}
+:root[data-theme="dark"] .tema-btn .ic-moon{display:none}
+:root[data-theme="dark"] .tema-btn .ic-sun{display:block}
+@media(hover:hover){.close.tema-btn:hover{color:var(--ac-ink)}}
+
+/* ===== Intip password ===== */
+.pw-wrap{position:relative}
+.pw-wrap .inp{padding-right:3.6rem}
+.pw-eye{position:absolute;top:50%;right:.55rem;transform:translateY(-50%);width:36px;height:36px;padding:0;display:grid;place-items:center;
+  border:1px solid var(--bd-up);border-radius:50%;background:var(--surf);box-shadow:var(--rnd-up);color:var(--mu);cursor:pointer;
+  transition:box-shadow .15s var(--ease),color .2s,transform .15s var(--ease);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.pw-eye svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.pw-eye .ic-off{display:none}
+.pw-eye[aria-pressed="true"] .ic-on{display:none}
+.pw-eye[aria-pressed="true"] .ic-off{display:block}
+.pw-eye:active,.pw-eye[aria-pressed="true"]{transform:translateY(calc(-50% + 2px));background:var(--surf-r);border-color:var(--bd-dn);box-shadow:var(--rnd-dn);color:var(--ac-ink)}
+
+/* ===== Tombol berupa tautan ===== */
+.btn-link{display:block;text-align:center;text-decoration:none}
+.btn-link.primary{color:#fff}
+
+/* ===== Menu Jadwal ===== */
+.jadwal-next{margin-top:1rem;padding:1rem 1.2rem;font-weight:700;color:var(--ac-ink);text-align:center}
+.jadwal-next:empty{display:none}
+.jadwal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;margin-top:1.2rem}
+.jadwal-item{padding:1.3rem 1rem;text-align:center;transition:box-shadow .2s}
+.jadwal-item .hari{display:block;font-family:var(--display);font-size:1.6rem;color:var(--tx-deep);text-shadow:var(--carve-lg)}
+.jadwal-item .jam{display:block;margin-top:.3rem;color:var(--ac-ink);font-size:1.05rem}
+.jadwal-item .lokasi{display:block;margin-top:.2rem;font-size:.85rem;color:var(--mu)}
+.jadwal-item.today{box-shadow:var(--in),0 0 0 3px rgba(131,148,255,.45)}
+.jadwal-item .badge{display:inline-block;margin-top:.5rem;padding:.1rem .7rem;border-radius:99px;font-size:.75rem;font-weight:700;color:#fff;
+  background:linear-gradient(145deg,#6578ee,var(--ac2));text-shadow:none}
+.studio-list{display:grid;gap:1rem;margin-top:1.2rem}
+.studio{padding:1rem 1.2rem}
+.studio b{display:block;font-size:1.05rem}
+.studio p{margin-top:.15rem;font-size:.9rem;color:var(--mu)}
+.tips{margin:1.2rem 0 0 1.2rem;color:var(--mu)}
+.tips li{margin:.35rem 0}
+.tips li::marker{color:var(--ac)}
+.tips a{color:var(--ac-ink);font-weight:700}
+
+/* ===== Menu Daftar Lagu ===== */
+.lagu-list{display:grid;gap:1rem;margin-top:1.2rem}
+.lagu{overflow:hidden}
+.lagu summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;font-weight:700;-webkit-tap-highlight-color:transparent}
+.lagu summary::-webkit-details-marker{display:none}
+.lagu summary::after{content:"";flex:none;margin-left:auto;width:.6rem;height:.6rem;border-right:3px solid var(--mu);border-bottom:3px solid var(--mu);transform:rotate(45deg) translate(-2px,-2px);transition:transform .2s}
+.lagu[open] summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
+.lagu-judul{display:block;color:var(--tx-deep);font-family:var(--display);font-size:1.15rem;font-weight:400;text-shadow:var(--carve-lg)}
+.lagu-sub{display:block;font-size:.85rem;color:var(--mu);font-weight:600}
+.lagu-body{padding:0 1.2rem 1.2rem}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.tag{padding:.15rem .75rem;border-radius:99px;font-size:.78rem;font-weight:700;color:var(--ac-ink);background:var(--bg);box-shadow:var(--in)}
+.bagian{margin-top:.9rem}
+.bagian h4{font-size:.85rem;color:var(--mu);letter-spacing:.03em;margin-bottom:.5rem}
+.chords{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
+.chord{min-width:2.8rem;padding:.4rem .75rem;text-align:center;border-radius:12px;font-weight:700;color:var(--ac-ink);
+  background:var(--surf);border:1px solid var(--bd-up);box-shadow:var(--rnd-up);font-variant-numeric:tabular-nums}
+.bar{width:3px;height:1.5rem;border-radius:2px;background:var(--line);box-shadow:1px 0 0 var(--bc-b)}
+.lagu-catatan{margin-top:1rem;font-size:.9rem;color:var(--mu)}
+.legend{margin-top:.8rem;font-size:.82rem;color:var(--mu)}
+
+/* ===== Layar lebar: ikon menu samping untuk Jadwal & Lagu, sidebar & bingkai ikut tema ===== */
+@media(min-width:960px){
+  .container{border-color:var(--card-bd);
+    box-shadow:20px 20px 44px var(--lo),-20px -20px 44px var(--hi),
+      inset 2px 2px 3px var(--t-ihi),inset -3px -3px 8px var(--t-ilo)}
+  .container .tabs [data-tab="jadwal"]{--ic:var(--ic-cal)}
+  .container .tabs [data-tab="lagu"]{--ic:var(--ic-note)}
+  .container .tabs .btn::before{filter:url(#ukir-ikon)}
+  :root[data-theme="dark"] .container .tabs .btn::before{filter:url(#ukir-ikon-gelap)}
+  /* nada G di sidebar mengikuti tema */
+  .container .tabs::after{filter:sepia(.55) saturate(.7) drop-shadow(1.5px 2px 0 rgba(255,255,255,.95))}
+  :root[data-theme="dark"] .container .tabs::after{filter:brightness(.34) contrast(1.15) drop-shadow(1.5px 2px 0 rgba(255,255,255,.08))}
+}
